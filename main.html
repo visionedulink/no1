@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VisionEduLink Lab | 비전에듀링크 AI교육연구소 수강 신청</title>
+<meta name="description" content="시니어부터 유·초·중·고 학생까지, 대상과 눈높이에 맞춘 AI·디지털 교육을 설계하는 VisionEduLink Lab의 수강 신청 페이지입니다.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="logo.png">
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href="#top" class="brand">
+      <img src="logo.png" alt="VisionEduLink 로고">
+      <span class="brand__suffix en">Lab</span>
+      <span class="brand__tagline">비전에듀링크 AI교육연구소</span>
+    </a>
+
+    <nav class="nav" aria-label="주요 메뉴">
+      <a href="#programs">교육분야</a>
+      <a href="#founder">대표소개</a>
+      <a href="#apply">수강신청</a>
+    </nav>
+
+    <div class="header-actions">
+      <a href="#apply" class="btn btn--primary">무료 상담 신청</a>
+      <button class="nav-toggle" aria-label="메뉴 열기" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="mobile-nav">
+    <div class="mobile-nav__inner">
+      <a href="#programs">교육분야</a>
+      <a href="#founder">대표소개</a>
+      <a href="#apply">수강신청</a>
+      <a href="#apply" class="btn btn--primary" style="justify-content:center; margin-top:8px;">무료 상담 신청</a>
+    </div>
+  </div>
+</header>
+
+<!-- ================= HERO (autoplay video) ================= -->
+<section class="hero" id="top">
+  <video
+    class="hero__media"
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="auto"
+    poster="%EB%8C%80%EA%B0%95%EC%9D%98%EC%9E%A5%20%EA%B0%95%EC%9D%98%20%EB%AA%A8%EC%8A%B5.png">
+    <source src="%EB%B9%84%EC%A0%BC%EC%97%90%EB%93%80%EB%A7%81%ED%81%AC%20%ED%99%8D%EB%B3%B4%20%EC%98%81%EC%83%81.mp4" type="video/mp4">
+  </video>
+  <div class="hero__overlay"></div>
+
+  <div class="hero__content">
+    <span class="hero__badge en">VisionEduLink AI Education Lab</span>
+    <h1 class="hero__title">기술을 가르치는 것이 아니라,<br>교육이 작동하게 만듭니다.</h1>
+    <p class="hero__sub">시니어부터 유·초·중·고 학생까지, 대상과 눈높이에 맞춘 AI·디지털 교육을 설계합니다.</p>
+
+    <div class="hero__actions">
+      <a href="#apply" class="btn btn--primary">수강 신청하기</a>
+      <a href="#programs" class="btn btn--outline-light">교육 분야 보기</a>
+    </div>
+
+    <div class="hero__trust">
+      <span class="hero__trust-item">10년 이상 현장 교육 경력</span>
+      <span class="hero__trust-item">자격시험 출제위원 활동</span>
+      <span class="hero__trust-item">KBS 방송 출연</span>
+    </div>
+  </div>
+
+  <div class="hero__scroll en">
+    <span>Scroll</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4v16m0 0l-6-6m6 6l6-6"/></svg>
+  </div>
+</section>
+
+<!-- ================= WHY ================= -->
+<section class="section" id="why">
+  <div class="container">
+    <div class="why__grid">
+      <div class="reveal">
+        <span class="overline en">Why VisionEduLink</span>
+        <h2 class="section-title">왜 VisionEduLink Lab인가요</h2>
+
+        <div class="why-list" style="margin-top:32px;">
+          <div class="why-item">
+            <span class="why-item__num en">01</span>
+            <div>
+              <p class="why-item__title">검증된 전문성</p>
+              <p class="why-item__desc">2014년부터 10년 이상 현장에서 교육을 설계·운영해왔습니다.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <span class="why-item__num en">02</span>
+            <div>
+              <p class="why-item__title">대상 맞춤 설계</p>
+              <p class="why-item__desc">5단계 교육 설계 시스템으로 학습자의 눈높이에 맞춥니다.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <span class="why-item__num en">03</span>
+            <div>
+              <p class="why-item__title">남는 결과물</p>
+              <p class="why-item__desc">일회성 강의가 아니라 교안·워크북 등 재사용 가능한 교육 자산을 남깁니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <figure class="why__image reveal">
+        <img src="%EB%8C%80%EA%B0%95%EC%9D%98%EC%9E%A5%20%EA%B0%95%EC%9D%98%20%EB%AA%A8%EC%8A%B5.png" alt="대강의장에서 생성형 AI 교육을 강연하는 박주희 대표">
+        <figcaption>대규모 강연 현장 — 생성형 AI &amp; Technology</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FIELD SNAPSHOT STRIP ================= -->
+<section class="field section">
+  <div class="container">
+    <div class="section-head reveal" style="margin-bottom:32px;">
+      <span class="overline en">In the Field</span>
+      <h2 class="section-title" style="font-size:1.7rem;">교육 현장에서</h2>
+    </div>
+
+    <div class="field__grid">
+      <figure class="field__card reveal">
+        <img src="%EA%B0%95%EC%9D%98%EC%9E%A5%EB%A9%B42.jpg" alt="박주희 대표가 청중과 소통하는 강연 현장 사진">
+        <figcaption class="field__caption">기관·기업 초청 강연 현장</figcaption>
+      </figure>
+      <figure class="field__card reveal">
+        <img src="%EA%B0%95%EC%9D%98%EC%9E%A5%EB%A9%B43.png" alt="KBS 아침마당 대전 출연 당시 사진">
+        <figcaption class="field__caption">KBS 「아침마당 대전」 AI 교육 출연 (2026)</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROGRAMS ================= -->
+<section class="section" id="programs">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="overline en">Programs</span>
+      <h2 class="section-title">누구를 위한 프로그램인가요</h2>
+      <p class="section-desc">VisionEduLink Lab의 4대 교육 솔루션입니다. 대상에 맞는 프로그램을 확인해 보세요.</p>
+    </div>
+
+    <div class="programs__grid">
+      <div class="program-card reveal">
+        <div class="program-card__num en">01</div>
+        <h3 class="program-card__title">생성형 AI &amp; AI 리터러시</h3>
+        <span class="program-card__target">대상 · 직장인·소상공인, 교사·강사</span>
+        <p class="program-card__desc">챗GPT·제미나이·클로드 등 생성형 AI를 실무와 수업에 연결합니다.</p>
+      </div>
+      <div class="program-card reveal">
+        <div class="program-card__num en">02</div>
+        <h3 class="program-card__title">스마트폰 &amp; 디지털 라이프</h3>
+        <span class="program-card__target">대상 · 시니어·중장년</span>
+        <p class="program-card__desc">진입장벽을 낮춘 생활 밀착형 스마트폰·디지털 교육입니다.</p>
+      </div>
+      <div class="program-card reveal">
+        <div class="program-card__num en">03</div>
+        <h3 class="program-card__title">콘텐츠 제작 및 마케팅</h3>
+        <span class="program-card__target">대상 · 전 대상 공통</span>
+        <p class="program-card__desc">Canva와 이미지·영상 AI로 홍보·교육 콘텐츠를 제작합니다.</p>
+      </div>
+      <div class="program-card reveal">
+        <div class="program-card__num en">04</div>
+        <h3 class="program-card__title">SW &amp; 피지컬 컴퓨팅</h3>
+        <span class="program-card__target">대상 · 유·초·중·고 학생</span>
+        <p class="program-card__desc">코딩·로봇 기반의 체험형 진로 프로젝트입니다.</p>
+      </div>
+    </div>
+
+    <p class="programs__note reveal">※ 과정명·회차·일정 등 세부 정보는 확정 후 별도 표기됩니다.</p>
+  </div>
+</section>
+
+<!-- ================= FOUNDER ================= -->
+<section class="section section--dark" id="founder">
+  <div class="container">
+    <div class="founder__grid">
+      <div class="reveal">
+        <span class="overline en">Founder</span>
+        <h2 class="founder__title">박주희 대표</h2>
+        <p class="founder__desc">비전에듀링크 AI교육연구소를 이끌며 2014년부터 10년 이상 SW·로봇코딩, 디지털 리터러시, 생성형 AI·시니어 평생교육에 이르기까지 현장 중심 교육을 직접 기획·운영해온 교육 설계 전문가입니다. 기술을 가르치는 것을 넘어, 교육이 현장에서 작동하도록 설계합니다.</p>
+
+        <div class="founder__badges">
+          <span class="founder__badge">10년 이상 현장 교육 경력</span>
+          <span class="founder__badge">KPC·KAIT 자격시험 출제위원</span>
+          <span class="founder__badge">KBS 아침마당 대전 AI 교육 출연</span>
+        </div>
+
+        <details class="founder__timeline">
+          <summary>주요 연혁 자세히 보기</summary>
+          <div class="timeline-list">
+            <div class="timeline-row"><span class="timeline-row__year en">2014</span><span class="timeline-row__desc">KPC(한국생산성본부) 자격 스타강사 선정</span></div>
+            <div class="timeline-row"><span class="timeline-row__year en">2015</span><span class="timeline-row__desc">세종창조경제혁신센터 Boxschool 기반 유아·어린이 로봇코딩 프로그램 운영</span></div>
+            <div class="timeline-row"><span class="timeline-row__year en">2016</span><span class="timeline-row__desc">세종스마트코딩연구회 활동 (유·초·중 SW·진로체험 교육 확장)</span></div>
+            <div class="timeline-row"><span class="timeline-row__year en">2017</span><span class="timeline-row__desc">여성창업경진대회 장려상 수상 (유아 코딩 커리큘럼 기획·개발)</span></div>
+            <div class="timeline-row"><span class="timeline-row__year en">2020</span><span class="timeline-row__desc">「코딩능력 마스터 2급」 교재 공저 및 교육 콘텐츠 출판</span></div>
+            <div class="timeline-row"><span class="timeline-row__year en">2022</span><span class="timeline-row__desc">VisionEduLink(비전에듀링크) 사명 전환, 전 연령 맞춤형 교육으로 확장</span></div>
+            <div class="timeline-row"><span class="timeline-row__year en">2023</span><span class="timeline-row__desc">디지털새싹캠프 우수강사 표창</span></div>
+            <div class="timeline-row"><span class="timeline-row__year en">2024~</span><span class="timeline-row__desc">G-PRC 공인 심판 등 심사·평가 활동</span></div>
+            <div class="timeline-row"><span class="timeline-row__year en">2026</span><span class="timeline-row__desc">KBS 「아침마당 대전」 AI 교육 출연, 생성형 AI·시니어·평생교육 분야 대표 강사 활동</span></div>
+          </div>
+          <p style="margin-top:16px; font-size:0.9rem; color:rgba(243,239,227,0.65);">출제·평가 및 출판 실적 — 한국생산성본부(KPC, 2014~), 한국정보통신진흥협회(KAIT, 2018~) 자격시험 출제위원. 저서 「DIAT 멀티미디어 제작」(2017, 2020 개정판 공저), 「코딩능력 마스터 2급」(2020, 2023 2.X 개정판 공저).</p>
+        </details>
+      </div>
+
+      <figure class="founder__photo reveal">
+        <img src="%EA%B0%95%EC%9D%98%EC%9E%A5%EB%A9%B41.jpg" alt="박주희 대표 프로필 사진">
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= APPLY FORM ================= -->
+<section class="section" id="apply">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="overline en">Apply Now</span>
+      <h2 class="section-title">수강 신청하기</h2>
+      <p class="section-desc">아래 정보를 남겨주시면 담당자가 확인 후 자세한 안내를 드립니다.</p>
+    </div>
+
+    <div class="apply__card reveal">
+      <form id="apply-form" class="apply-form" novalidate>
+        <div class="form-field">
+          <label for="name">이름<span class="req">*</span></label>
+          <input type="text" id="name" name="name" placeholder="성함을 입력해주세요" required autocomplete="name">
+        </div>
+
+        <div class="form-field">
+          <label for="phone">연락처<span class="req">*</span></label>
+          <input type="tel" id="phone" name="phone" placeholder="010-0000-0000" required autocomplete="tel" pattern="[0-9\-]{9,14}">
+        </div>
+
+        <div class="form-field">
+          <label for="email">이메일<span class="req">*</span></label>
+          <input type="email" id="email" name="email" placeholder="example@email.com" required autocomplete="email">
+        </div>
+
+        <div class="form-field">
+          <label>관심 분야<span class="req">*</span></label>
+          <div class="form-radio-group">
+            <label class="form-radio">
+              <input type="radio" name="interest" value="시니어·평생교육" required>
+              시니어·평생교육
+            </label>
+            <label class="form-radio">
+              <input type="radio" name="interest" value="직장인·소상공인">
+              직장인·소상공인
+            </label>
+            <label class="form-radio">
+              <input type="radio" name="interest" value="교사·강사·교육설계자">
+              교사·강사·교육설계자
+            </label>
+            <label class="form-radio">
+              <input type="radio" name="interest" value="유초중고 학생">
+              유초중고 학생
+            </label>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="message">하고 싶은 말 <span style="color:#8a8a83; font-weight:500; font-size:0.85rem;">(선택)</span></label>
+          <textarea id="message" name="message" placeholder="궁금하신 점이나 전달하고 싶은 내용을 자유롭게 남겨주세요."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn--primary btn--block">신청서 제출하기</button>
+        <p class="form-note">입력하신 정보는 상담 목적 외에는 사용되지 않습니다.</p>
+      </form>
+
+      <div class="form-success" id="apply-success">
+        <div class="form-success__icon">✓</div>
+        <h3>신청이 접수되었습니다</h3>
+        <p>남겨주신 연락처로 담당자가 순차적으로 안내드리겠습니다.<br>감사합니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site-footer section--dark">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__brand">
+          <img src="logo.png" alt="VisionEduLink 로고">
+          <span class="en">Lab</span>
+        </div>
+        <p class="footer__desc">VisionEduLink Lab · 비전에듀링크 AI교육연구소<br>기술을 가르치는 것보다 교육이 작동하게 만드는 일.</p>
+      </div>
+
+      <div>
+        <p class="footer__heading en">Menu</p>
+        <ul class="footer__links">
+          <li><a href="#programs">교육분야</a></li>
+          <li><a href="#founder">대표소개</a></li>
+          <li><a href="#apply">수강신청</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="footer__heading en">Contact</p>
+        <ul class="footer__contact">
+          <li>전화 · <a href="tel:01030886708">010-3088-6708</a></li>
+          <li>이메일 · <a href="mailto:fairy305@hanmail.net">fairy305@hanmail.net</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <span>© 2026 VisionEduLink. All rights reserved.</span>
+      <span>VisionEduLink Lab · 비전에듀링크 AI교육연구소</span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
