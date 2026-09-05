@@ -7,7 +7,7 @@
  * 스프레드시트 ID: 1xG7XdDSGzvyRDLcYGRx2DJC2NVgUbidgjp7mpP4t-No
  * --------------------------------------------------------------------------
  */
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby4PVjuZag68cYws7JV9qnE3WNYAd7qoU3CvR4wvCQ9JYj2KgQxMyGNDweL6Z3MFjlJ/exec';
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzirSbHMLV8fXv3PQa0QF-b6eESdf8kXyzHxR6IKukoZJ7OM7ChK0KXIYPunmwBGFuV/exec';
 
 document.addEventListener('DOMContentLoaded', () => {
   /* Mobile nav toggle */
