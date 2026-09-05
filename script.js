@@ -1,5 +1,14 @@
 // VisionEduLink Lab — Landing page interactions
 
+/**
+ * --------------------------------------------------------------------------
+ * [구글 스프레드시트 연동 설정]
+ * Google Apps Script를 웹 앱으로 배포한 후 발급받은 '웹 앱 URL'을 아래에 붙여넣으세요.
+ * 스프레드시트 ID: 1xG7XdDSGzvyRDLcYGRx2DJC2NVgUbidgjp7mpP4t-No
+ * --------------------------------------------------------------------------
+ */
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzf1uPTsqDBz43HIuaPHTe2MO1tpg6mMOfljCozTqrtdGgAta0IzGq_RuPc8rOTh1a7/exec';
+
 document.addEventListener('DOMContentLoaded', () => {
   /* Mobile nav toggle */
   const navToggle = document.querySelector('.nav-toggle');
@@ -43,28 +52,84 @@ document.addEventListener('DOMContentLoaded', () => {
   /* Hero video: ensure autoplay on mobile browsers that need a play() nudge */
   const heroVideo = document.querySelector('.hero__media');
   if (heroVideo) {
-    const tryPlay = () => heroVideo.play().catch(() => {});
+    const tryPlay = () => heroVideo.play().catch(() => { });
     tryPlay();
     document.addEventListener('visibilitychange', () => {
       if (!document.hidden) tryPlay();
     });
   }
 
-  /* Apply form: client-side handling (no backend configured yet) */
+  /* Apply form: Google Sheets integration */
   const applyForm = document.getElementById('apply-form');
   const successPanel = document.getElementById('apply-success');
+  const submitBtn = document.getElementById('submit-btn');
+  const formError = document.getElementById('form-error');
 
   if (applyForm && successPanel) {
-    applyForm.addEventListener('submit', (e) => {
+    applyForm.addEventListener('submit', async (e) => {
       e.preventDefault();
+
       if (!applyForm.checkValidity()) {
         applyForm.reportValidity();
         return;
       }
-      applyForm.classList.add('is-hidden');
-      successPanel.classList.add('is-visible');
-      successPanel.setAttribute('tabindex', '-1');
-      successPanel.focus();
+
+      // 폼 데이터 수집
+      const selectedInterest = applyForm.querySelector('input[name="interest"]:checked');
+      const formData = {
+        name: applyForm.name.value.trim(),
+        phone: applyForm.phone.value.trim(),
+        email: applyForm.email.value.trim(),
+        interest: selectedInterest ? selectedInterest.value : '',
+        message: applyForm.message ? applyForm.message.value.trim() : ''
+      };
+
+      // 버튼 로딩 상태 전환
+      const btnText = submitBtn ? submitBtn.querySelector('.btn-text') : null;
+      const btnLoader = submitBtn ? submitBtn.querySelector('.btn-loader') : null;
+
+      if (submitBtn) submitBtn.disabled = true;
+      if (btnText) btnText.style.display = 'none';
+      if (btnLoader) btnLoader.style.display = 'inline-flex';
+      if (formError) formError.style.display = 'none';
+
+      try {
+        if (GOOGLE_SCRIPT_URL && GOOGLE_SCRIPT_URL.trim() !== '') {
+          // Google Apps Script 웹 앱으로 데이터 전송
+          await fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors', // 구글 앱스 스크립트 CORS 우회 및 보안 정책 통과
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+          });
+        } else {
+          console.warn('[안내] GOOGLE_SCRIPT_URL이 설정되지 않았습니다. google_apps_script.js 배포 후 발급받은 URL을 script.js에 입력해 주세요.');
+          // 시연용 딜레이
+          await new Promise((resolve) => setTimeout(resolve, 800));
+        }
+
+        // 성공 화면 표시
+        applyForm.classList.add('is-hidden');
+        successPanel.classList.add('is-visible');
+        successPanel.setAttribute('tabindex', '-1');
+        successPanel.focus();
+        successPanel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        // 폼 리셋
+        applyForm.reset();
+      } catch (err) {
+        console.error('신청서 제출 오류:', err);
+        if (formError) {
+          formError.textContent = '신청서 제출 중 문제가 발생했습니다. 잠시 후 다시 시도해 주세요.';
+          formError.style.display = 'block';
+        }
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
+        if (btnText) btnText.style.display = 'inline';
+        if (btnLoader) btnLoader.style.display = 'none';
+      }
     });
   }
 });

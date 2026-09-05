@@ -1,335 +1,400 @@
 <!DOCTYPE html>
+
 <html lang="ko">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VisionEduLink Lab | 비전에듀링크 AI교육연구소 수강 신청</title>
-<meta name="description" content="시니어부터 유·초·중·고 학생까지, 대상과 눈높이에 맞춘 AI·디지털 교육을 설계하는 VisionEduLink Lab의 수강 신청 페이지입니다.">
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <style>
+    @layer base {
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
 
-<link rel="stylesheet" href="styles.css">
-<link rel="icon" href="logo.png">
+      body {
+        overscroll-behavior: none;
+      }
+
+      main>:first-child {
+        margin-top: 0 !important;
+      }
+
+      main>:last-child {
+        margin-bottom: 0 !important;
+      }
+    }
+
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script
+    id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "secondary-fixed-dim": "#ccc6b8", "on-error": "#ffffff", "on-primary-fixed-variant": "#4b4900", "on-tertiary": "#ffffff", "tertiary-container": "#9fa0a0", "inverse-surface": "#30302e", "surface-bright": "#fcf9f5", "on-error-container": "#93000a", "surface-container-highest": "#e5e2df", "background": "#fcf9f5", "inverse-on-surface": "#f3f0ed", "surface-container-low": "#f6f3f0", "surface-container-lowest": "#ffffff", "secondary": "#625e53", "on-tertiary-container": "#353737", "surface": "#fcf9f5", "primary-fixed-dim": "#cecb5d", "on-tertiary-fixed-variant": "#454747", "on-surface-variant": "#494737", "surface-tint": "#636100", "surface-container-high": "#eae8e4", "on-surface": "#1b1c1a", "primary-fixed": "#ebe776", "on-secondary-container": "#686458", "primary": "#636100", "on-secondary-fixed": "#1e1c13", "surface-variant": "#e5e2df", "on-primary-container": "#3a3900", "outline": "#7a7866", "tertiary-fixed": "#e2e2e2", "secondary-container": "#e9e2d3", "tertiary-fixed-dim": "#c6c6c7", "outline-variant": "#cac7b2", "surface-container": "#f0edea", "surface-dim": "#dcdad6", "secondary-fixed": "#e9e2d3", "on-primary": "#ffffff", "on-background": "#1b1c1a", "on-primary-fixed": "#1d1d00", "on-secondary-fixed-variant": "#4a473c", "on-tertiary-fixed": "#1a1c1c", "tertiary": "#5d5f5f", "on-secondary": "#ffffff", "error-container": "#ffdad6", "error": "#ba1a1a", "primary-container": "#a7a43b", "inverse-primary": "#cecb5d" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-xs": "0.5rem", "space-lg": "1.5rem", "space-2xs": "0.25rem", "gutter": "1.5rem", "space-xl": "2rem", "space-md": "1rem", "space-2xl": "3rem", "space-sm": "0.75rem", "margin-screen": "1.25rem" }, "fontFamily": { "body-lg": ["Public Sans"], "headline-md": ["Public Sans"], "label-lg": ["Public Sans"], "body-sm": ["Public Sans"], "label-md": ["Public Sans"], "body-md": ["Public Sans"], "headline-sm": ["Public Sans"], "headline-lg": ["Public Sans"], "headline-xl": ["Public Sans"] }, "fontSize": { "body-lg": ["16px", { "lineHeight": "1.7", "fontWeight": "400" }], "headline-md": ["22px", { "lineHeight": "1.4", "fontWeight": "600" }], "label-lg": ["15px", { "lineHeight": "1.5", "fontWeight": "600" }], "body-sm": ["14px", { "lineHeight": "1.65", "fontWeight": "400" }], "label-md": ["13px", { "lineHeight": "1.5", "fontWeight": "600" }], "body-md": ["15px", { "lineHeight": "1.65", "fontWeight": "400" }], "headline-sm": ["18px", { "lineHeight": "1.45", "fontWeight": "600" }], "headline-lg": ["28px", { "lineHeight": "1.35", "letterSpacing": "-0.01em", "fontWeight": "700" }], "headline-xl": ["36px", { "lineHeight": "1.3", "letterSpacing": "-0.02em", "fontWeight": "700" }] } } } };</script>
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700&amp;display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..205"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
 </head>
-<body>
 
-<!-- ================= HEADER ================= -->
-<header class="site-header">
-  <div class="site-header__inner">
-    <a href="#top" class="brand">
-      <img src="logo.png" alt="VisionEduLink 로고">
-      <span class="brand__suffix en">Lab</span>
-      <span class="brand__tagline">비전에듀링크 AI교육연구소</span>
-    </a>
-
-    <nav class="nav" aria-label="주요 메뉴">
-      <a href="#programs">교육분야</a>
-      <a href="#founder">대표소개</a>
-      <a href="#apply">수강신청</a>
-    </nav>
-
-    <div class="header-actions">
-      <a href="#apply" class="btn btn--primary">무료 상담 신청</a>
-      <button class="nav-toggle" aria-label="메뉴 열기" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
+<body class="bg-surface font-body-md text-on-surface">
+  <header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+    <div class="h-20 max-w-7xl mx-auto px-gutter flex items-center justify-between"><a
+        class="flex items-center gap-space-sm" data-path="연구소-소개" href="#">
+        <div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-on-primary font-headline-md">V
+        </div><span class="text-headline-sm text-on-surface tracking-tight">VisionEduLink Lab</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-space-lg"
+        data-active-classes="bg-secondary-container text-on-secondary-container font-semibold rounded-lg"><a
+          class="px-space-md py-space-xs text-body-md text-on-surface-variant hover:text-on-surface transition-colors"
+          data-path="연구소-소개" href="#">연구소 소개</a><a
+          class="px-space-md py-space-xs text-body-md text-on-surface-variant hover:text-on-surface transition-colors"
+          data-path="교육-솔루션" href="#">교육 솔루션</a><a
+          class="px-space-md py-space-xs text-body-md text-on-surface-variant hover:text-on-surface transition-colors"
+          data-path="강사-소개" href="#">강사 소개</a><a aria-current="page"
+          class="px-space-md py-space-xs transition-colors bg-secondary-container text-on-secondary-container font-semibold rounded-lg"
+          data-path="수강신청" href="#">수강신청</a></nav>
+      <div class="flex items-center gap-space-md">
+        <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span
+            class="material-symbols-outlined text-on-primary text-[18px]">person</span></div>
+      </div>
     </div>
-  </div>
-
-  <div class="mobile-nav">
-    <div class="mobile-nav__inner">
-      <a href="#programs">교육분야</a>
-      <a href="#founder">대표소개</a>
-      <a href="#apply">수강신청</a>
-      <a href="#apply" class="btn btn--primary" style="justify-content:center; margin-top:8px;">무료 상담 신청</a>
-    </div>
-  </div>
-</header>
-
-<!-- ================= HERO (autoplay video) ================= -->
-<section class="hero" id="top">
-  <video
-    class="hero__media"
-    autoplay
-    muted
-    loop
-    playsinline
-    preload="auto"
-    poster="%EB%8C%80%EA%B0%95%EC%9D%98%EC%9E%A5%20%EA%B0%95%EC%9D%98%20%EB%AA%A8%EC%8A%B5.png">
-    <source src="%EB%B9%84%EC%A0%BC%EC%97%90%EB%93%80%EB%A7%81%ED%81%AC%20%ED%99%8D%EB%B3%B4%20%EC%98%81%EC%83%81.mp4" type="video/mp4">
-  </video>
-  <div class="hero__overlay"></div>
-
-  <div class="hero__content">
-    <span class="hero__badge en">VisionEduLink AI Education Lab</span>
-    <h1 class="hero__title">기술을 가르치는 것이 아니라,<br>교육이 작동하게 만듭니다.</h1>
-    <p class="hero__sub">시니어부터 유·초·중·고 학생까지, 대상과 눈높이에 맞춘 AI·디지털 교육을 설계합니다.</p>
-
-    <div class="hero__actions">
-      <a href="#apply" class="btn btn--primary">수강 신청하기</a>
-      <a href="#programs" class="btn btn--outline-light">교육 분야 보기</a>
-    </div>
-
-    <div class="hero__trust">
-      <span class="hero__trust-item">10년 이상 현장 교육 경력</span>
-      <span class="hero__trust-item">자격시험 출제위원 활동</span>
-      <span class="hero__trust-item">KBS 방송 출연</span>
-    </div>
-  </div>
-
-  <div class="hero__scroll en">
-    <span>Scroll</span>
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4v16m0 0l-6-6m6 6l6-6"/></svg>
-  </div>
-</section>
-
-<!-- ================= WHY ================= -->
-<section class="section" id="why">
-  <div class="container">
-    <div class="why__grid">
-      <div class="reveal">
-        <span class="overline en">Why VisionEduLink</span>
-        <h2 class="section-title">왜 VisionEduLink Lab인가요</h2>
-
-        <div class="why-list" style="margin-top:32px;">
-          <div class="why-item">
-            <span class="why-item__num en">01</span>
-            <div>
-              <p class="why-item__title">검증된 전문성</p>
-              <p class="why-item__desc">2014년부터 10년 이상 현장에서 교육을 설계·운영해왔습니다.</p>
+  </header>
+  <main class="w-full pt-20 bg-surface min-h-[calc(100vh-200px)]">
+    <div class="flex flex-col w-full">
+      <!-- Hero Section -->
+      <section class="relative w-full bg-surface py-space-2xl overflow-hidden">
+        <div
+          class="max-w-7xl mx-auto px-gutter grid grid-cols-1 lg:grid-cols-12 gap-space-2xl items-center relative z-10">
+          <div class="lg:col-span-7 flex flex-col items-start gap-space-lg">
+            <div
+              class="inline-flex items-center gap-space-xs px-space-md py-space-xs rounded-full bg-secondary-container text-on-secondary-container text-label-md">
+              <span class="material-symbols-outlined text-[16px]">verified</span>
+              <span>10년 이상의 현장 전문성 · 대표강사 박주희</span>
+            </div>
+            <h1 class="text-headline-xl text-on-surface font-bold tracking-tight">
+              기술을 가르치는 것보다<br /><span class="text-primary">교육이 작동하게 만드는 일</span>
+            </h1>
+            <p class="text-body-lg text-on-surface-variant max-w-2xl">
+              단순 유행 기술 소개를 넘어 사람, 기술, 교육의 유기적 연결을 지향합니다. AI 리터러시부터 시니어·평생교육까지, 수강생이 직접 해내고 기관에 자산이 남는 실질적 교육을 설계합니다.
+            </p>
+            <div class="flex flex-wrap items-center gap-space-md pt-space-xs">
+              <a class="px-space-xl py-space-md rounded-xl bg-primary text-on-primary font-label-lg shadow-sm hover:opacity-90 transition-opacity flex items-center gap-space-sm"
+                href="#apply">
+                <span>수강신청 및 문의하기</span>
+                <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+              </a>
+              <a class="px-space-xl py-space-md rounded-xl bg-secondary-container text-on-secondary-container font-label-lg hover:bg-secondary-fixed-dim transition-colors"
+                href="#solutions">
+                교육 솔루션 살펴보기
+              </a>
             </div>
           </div>
-          <div class="why-item">
-            <span class="why-item__num en">02</span>
-            <div>
-              <p class="why-item__title">대상 맞춤 설계</p>
-              <p class="why-item__desc">5단계 교육 설계 시스템으로 학습자의 눈높이에 맞춥니다.</p>
+          <div class="lg:col-span-5 relative">
+            <div
+              class="absolute -top-10 -right-10 w-72 h-72 rounded-full bg-primary-fixed/20 blur-3xl pointer-events-none">
             </div>
-          </div>
-          <div class="why-item">
-            <span class="why-item__num en">03</span>
-            <div>
-              <p class="why-item__title">남는 결과물</p>
-              <p class="why-item__desc">일회성 강의가 아니라 교안·워크북 등 재사용 가능한 교육 자산을 남깁니다.</p>
+            <div class="bg-surface-container-lowest p-space-xl rounded-2xl shadow-xl shadow-surface-tint/5 relative">
+              <div class="flex items-center gap-space-md mb-space-lg">
+                <div
+                  class="w-14 h-14 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-headline-md">
+                  박</div>
+                <div>
+                  <h3 class="text-headline-sm text-on-surface">박주희 대표</h3>
+                  <p class="text-body-sm text-on-surface-variant">비전에듀링크 AI 교육연구소 소장</p>
+                </div>
+              </div>
+              <div
+                class="space-y-space-md text-body-sm text-on-surface-variant border-t border-surface-container pt-space-lg">
+                <div class="flex items-start gap-space-sm">
+                  <span class="material-symbols-outlined text-primary text-[20px] mt-0.5">check_circle</span>
+                  <span>KPC 자격 스타강사 선정 (2014) 및 KPC·KAIT 자격시험 출제위원</span>
+                </div>
+                <div class="flex items-start gap-space-sm">
+                  <span class="material-symbols-outlined text-primary text-[20px] mt-0.5">check_circle</span>
+                  <span>KBS 「아침마당 대전」 AI 교육 출연 및 언론·방송 다수</span>
+                </div>
+                <div class="flex items-start gap-space-sm">
+                  <span class="material-symbols-outlined text-primary text-[20px] mt-0.5">check_circle</span>
+                  <span>디지털새싹캠프 우수강사 표창 및 《코딩능력 마스터》 공저</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-
-      <figure class="why__image reveal">
-        <img src="%EB%8C%80%EA%B0%95%EC%9D%98%EC%9E%A5%20%EA%B0%95%EC%9D%98%20%EB%AA%A8%EC%8A%B5.png" alt="대강의장에서 생성형 AI 교육을 강연하는 박주희 대표">
-        <figcaption>대규모 강연 현장 — 생성형 AI &amp; Technology</figcaption>
-      </figure>
-    </div>
-  </div>
-</section>
-
-<!-- ================= FIELD SNAPSHOT STRIP ================= -->
-<section class="field section">
-  <div class="container">
-    <div class="section-head reveal" style="margin-bottom:32px;">
-      <span class="overline en">In the Field</span>
-      <h2 class="section-title" style="font-size:1.7rem;">교육 현장에서</h2>
-    </div>
-
-    <div class="field__grid">
-      <figure class="field__card reveal">
-        <img src="%EA%B0%95%EC%9D%98%EC%9E%A5%EB%A9%B42.jpg" alt="박주희 대표가 청중과 소통하는 강연 현장 사진">
-        <figcaption class="field__caption">기관·기업 초청 강연 현장</figcaption>
-      </figure>
-      <figure class="field__card reveal">
-        <img src="%EA%B0%95%EC%9D%98%EC%9E%A5%EB%A9%B43.png" alt="KBS 아침마당 대전 출연 당시 사진">
-        <figcaption class="field__caption">KBS 「아침마당 대전」 AI 교육 출연 (2026)</figcaption>
-      </figure>
-    </div>
-  </div>
-</section>
-
-<!-- ================= PROGRAMS ================= -->
-<section class="section" id="programs">
-  <div class="container">
-    <div class="section-head center reveal">
-      <span class="overline en">Programs</span>
-      <h2 class="section-title">누구를 위한 프로그램인가요</h2>
-      <p class="section-desc">VisionEduLink Lab의 4대 교육 솔루션입니다. 대상에 맞는 프로그램을 확인해 보세요.</p>
-    </div>
-
-    <div class="programs__grid">
-      <div class="program-card reveal">
-        <div class="program-card__num en">01</div>
-        <h3 class="program-card__title">생성형 AI &amp; AI 리터러시</h3>
-        <span class="program-card__target">대상 · 직장인·소상공인, 교사·강사</span>
-        <p class="program-card__desc">챗GPT·제미나이·클로드 등 생성형 AI를 실무와 수업에 연결합니다.</p>
-      </div>
-      <div class="program-card reveal">
-        <div class="program-card__num en">02</div>
-        <h3 class="program-card__title">스마트폰 &amp; 디지털 라이프</h3>
-        <span class="program-card__target">대상 · 시니어·중장년</span>
-        <p class="program-card__desc">진입장벽을 낮춘 생활 밀착형 스마트폰·디지털 교육입니다.</p>
-      </div>
-      <div class="program-card reveal">
-        <div class="program-card__num en">03</div>
-        <h3 class="program-card__title">콘텐츠 제작 및 마케팅</h3>
-        <span class="program-card__target">대상 · 전 대상 공통</span>
-        <p class="program-card__desc">Canva와 이미지·영상 AI로 홍보·교육 콘텐츠를 제작합니다.</p>
-      </div>
-      <div class="program-card reveal">
-        <div class="program-card__num en">04</div>
-        <h3 class="program-card__title">SW &amp; 피지컬 컴퓨팅</h3>
-        <span class="program-card__target">대상 · 유·초·중·고 학생</span>
-        <p class="program-card__desc">코딩·로봇 기반의 체험형 진로 프로젝트입니다.</p>
-      </div>
-    </div>
-
-    <p class="programs__note reveal">※ 과정명·회차·일정 등 세부 정보는 확정 후 별도 표기됩니다.</p>
-  </div>
-</section>
-
-<!-- ================= FOUNDER ================= -->
-<section class="section section--dark" id="founder">
-  <div class="container">
-    <div class="founder__grid">
-      <div class="reveal">
-        <span class="overline en">Founder</span>
-        <h2 class="founder__title">박주희 대표</h2>
-        <p class="founder__desc">비전에듀링크 AI교육연구소를 이끌며 2014년부터 10년 이상 SW·로봇코딩, 디지털 리터러시, 생성형 AI·시니어 평생교육에 이르기까지 현장 중심 교육을 직접 기획·운영해온 교육 설계 전문가입니다. 기술을 가르치는 것을 넘어, 교육이 현장에서 작동하도록 설계합니다.</p>
-
-        <div class="founder__badges">
-          <span class="founder__badge">10년 이상 현장 교육 경력</span>
-          <span class="founder__badge">KPC·KAIT 자격시험 출제위원</span>
-          <span class="founder__badge">KBS 아침마당 대전 AI 교육 출연</span>
-        </div>
-
-        <details class="founder__timeline">
-          <summary>주요 연혁 자세히 보기</summary>
-          <div class="timeline-list">
-            <div class="timeline-row"><span class="timeline-row__year en">2014</span><span class="timeline-row__desc">KPC(한국생산성본부) 자격 스타강사 선정</span></div>
-            <div class="timeline-row"><span class="timeline-row__year en">2015</span><span class="timeline-row__desc">세종창조경제혁신센터 Boxschool 기반 유아·어린이 로봇코딩 프로그램 운영</span></div>
-            <div class="timeline-row"><span class="timeline-row__year en">2016</span><span class="timeline-row__desc">세종스마트코딩연구회 활동 (유·초·중 SW·진로체험 교육 확장)</span></div>
-            <div class="timeline-row"><span class="timeline-row__year en">2017</span><span class="timeline-row__desc">여성창업경진대회 장려상 수상 (유아 코딩 커리큘럼 기획·개발)</span></div>
-            <div class="timeline-row"><span class="timeline-row__year en">2020</span><span class="timeline-row__desc">「코딩능력 마스터 2급」 교재 공저 및 교육 콘텐츠 출판</span></div>
-            <div class="timeline-row"><span class="timeline-row__year en">2022</span><span class="timeline-row__desc">VisionEduLink(비전에듀링크) 사명 전환, 전 연령 맞춤형 교육으로 확장</span></div>
-            <div class="timeline-row"><span class="timeline-row__year en">2023</span><span class="timeline-row__desc">디지털새싹캠프 우수강사 표창</span></div>
-            <div class="timeline-row"><span class="timeline-row__year en">2024~</span><span class="timeline-row__desc">G-PRC 공인 심판 등 심사·평가 활동</span></div>
-            <div class="timeline-row"><span class="timeline-row__year en">2026</span><span class="timeline-row__desc">KBS 「아침마당 대전」 AI 교육 출연, 생성형 AI·시니어·평생교육 분야 대표 강사 활동</span></div>
+      </section>
+      <!-- 4 Major Solutions Section -->
+      <section class="w-full bg-surface-container-low py-space-2xl" id="solutions">
+        <div class="max-w-7xl mx-auto px-gutter">
+          <div class="flex flex-col items-center text-center max-w-2xl mx-auto mb-space-2xl">
+            <span class="text-label-md text-primary mb-space-xs uppercase tracking-wider">Solutions</span>
+            <h2 class="text-headline-lg text-on-surface mb-space-sm">주요 교육 분야 및 제안 솔루션</h2>
+            <p class="text-body-md text-on-surface-variant">기관의 과제 해결과 수강생의 실질적 변화를 이끄는 맞춤형 교육 프로그램입니다.</p>
           </div>
-          <p style="margin-top:16px; font-size:0.9rem; color:rgba(243,239,227,0.65);">출제·평가 및 출판 실적 — 한국생산성본부(KPC, 2014~), 한국정보통신진흥협회(KAIT, 2018~) 자격시험 출제위원. 저서 「DIAT 멀티미디어 제작」(2017, 2020 개정판 공저), 「코딩능력 마스터 2급」(2020, 2023 2.X 개정판 공저).</p>
-        </details>
-      </div>
-
-      <figure class="founder__photo reveal">
-        <img src="%EA%B0%95%EC%9D%98%EC%9E%A5%EB%A9%B41.jpg" alt="박주희 대표 프로필 사진">
-      </figure>
-    </div>
-  </div>
-</section>
-
-<!-- ================= APPLY FORM ================= -->
-<section class="section" id="apply">
-  <div class="container">
-    <div class="section-head center reveal">
-      <span class="overline en">Apply Now</span>
-      <h2 class="section-title">수강 신청하기</h2>
-      <p class="section-desc">아래 정보를 남겨주시면 담당자가 확인 후 자세한 안내를 드립니다.</p>
-    </div>
-
-    <div class="apply__card reveal">
-      <form id="apply-form" class="apply-form" novalidate>
-        <div class="form-field">
-          <label for="name">이름<span class="req">*</span></label>
-          <input type="text" id="name" name="name" placeholder="성함을 입력해주세요" required autocomplete="name">
-        </div>
-
-        <div class="form-field">
-          <label for="phone">연락처<span class="req">*</span></label>
-          <input type="tel" id="phone" name="phone" placeholder="010-0000-0000" required autocomplete="tel" pattern="[0-9\-]{9,14}">
-        </div>
-
-        <div class="form-field">
-          <label for="email">이메일<span class="req">*</span></label>
-          <input type="email" id="email" name="email" placeholder="example@email.com" required autocomplete="email">
-        </div>
-
-        <div class="form-field">
-          <label>관심 분야<span class="req">*</span></label>
-          <div class="form-radio-group">
-            <label class="form-radio">
-              <input type="radio" name="interest" value="시니어·평생교육" required>
-              시니어·평생교육
-            </label>
-            <label class="form-radio">
-              <input type="radio" name="interest" value="직장인·소상공인">
-              직장인·소상공인
-            </label>
-            <label class="form-radio">
-              <input type="radio" name="interest" value="교사·강사·교육설계자">
-              교사·강사·교육설계자
-            </label>
-            <label class="form-radio">
-              <input type="radio" name="interest" value="유초중고 학생">
-              유초중고 학생
-            </label>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-lg">
+            <!-- Solution 1 -->
+            <div
+              class="bg-surface-container-lowest p-space-xl rounded-xl shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+              <div>
+                <div
+                  class="w-12 h-12 rounded-lg bg-primary-container text-on-primary-container flex items-center justify-center mb-space-lg">
+                  <span class="material-symbols-outlined text-[24px]">smart_toy</span>
+                </div>
+                <h3 class="text-headline-sm text-on-surface mb-space-sm">생성형 AI &amp; AI 리터러시</h3>
+                <p class="text-body-sm text-on-surface-variant mb-space-lg">챗GPT, 제미나이, 클로드 등 최신 AI 도구를 수업 및 일상 업무에
+                  맞춤형으로 적용하는 실무 중심 교육입니다.</p>
+              </div>
+              <div
+                class="pt-space-md border-t border-surface-container text-label-md text-primary flex items-center gap-space-xs">
+                <span>실습 중심 커리큘럼</span>
+                <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+              </div>
+            </div>
+            <!-- Solution 2 -->
+            <div
+              class="bg-surface-container-lowest p-space-xl rounded-xl shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+              <div>
+                <div
+                  class="w-12 h-12 rounded-lg bg-primary-container text-on-primary-container flex items-center justify-center mb-space-lg">
+                  <span class="material-symbols-outlined text-[24px]">elderly</span>
+                </div>
+                <h3 class="text-headline-sm text-on-surface mb-space-sm">스마트폰 &amp; 디지털 라이프</h3>
+                <p class="text-body-sm text-on-surface-variant mb-space-lg">시니어 및 중장년층 대상의 진입장벽을 낮춘 친화적 디지털 교육으로, 생활 밀착형
+                  스마트폰 활용법을 전합니다.</p>
+              </div>
+              <div
+                class="pt-space-md border-t border-surface-container text-label-md text-primary flex items-center gap-space-xs">
+                <span>맞춤 눈높이 교육</span>
+                <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+              </div>
+            </div>
+            <!-- Solution 3 -->
+            <div
+              class="bg-surface-container-lowest p-space-xl rounded-xl shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+              <div>
+                <div
+                  class="w-12 h-12 rounded-lg bg-primary-container text-on-primary-container flex items-center justify-center mb-space-lg">
+                  <span class="material-symbols-outlined text-[24px]">palette</span>
+                </div>
+                <h3 class="text-headline-sm text-on-surface mb-space-sm">콘텐츠 제작 및 마케팅</h3>
+                <p class="text-body-sm text-on-surface-variant mb-space-lg">Canva 및 이미지·영상 AI 툴을 활용하여 홍보물 제작, SNS 및 미디어를
+                  직접 다루는 실습 교육을 진행합니다.</p>
+              </div>
+              <div
+                class="pt-space-md border-t border-surface-container text-label-md text-primary flex items-center gap-space-xs">
+                <span>실무 역량 강화</span>
+                <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+              </div>
+            </div>
+            <!-- Solution 4 -->
+            <div
+              class="bg-surface-container-lowest p-space-xl rounded-xl shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+              <div>
+                <div
+                  class="w-12 h-12 rounded-lg bg-primary-container text-on-primary-container flex items-center justify-center mb-space-lg">
+                  <span class="material-symbols-outlined text-[24px]">memory</span>
+                </div>
+                <h3 class="text-headline-sm text-on-surface mb-space-sm">SW &amp; 피지컬 컴퓨팅</h3>
+                <p class="text-body-sm text-on-surface-variant mb-space-lg">코딩, 로봇, 피지컬 컴퓨팅을 기반으로 한 체험형 진로 프로젝트 및 창의융합
+                  사고력 향상 프로그램을 제공합니다.</p>
+              </div>
+              <div
+                class="pt-space-md border-t border-surface-container text-label-md text-primary flex items-center gap-space-xs">
+                <span>체험형 프로젝트</span>
+                <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+              </div>
+            </div>
           </div>
         </div>
-
-        <div class="form-field">
-          <label for="message">하고 싶은 말 <span style="color:#8a8a83; font-weight:500; font-size:0.85rem;">(선택)</span></label>
-          <textarea id="message" name="message" placeholder="궁금하신 점이나 전달하고 싶은 내용을 자유롭게 남겨주세요."></textarea>
+      </section>
+      <!-- Instructor & Philosophy Section -->
+      <section class="w-full bg-surface py-space-2xl">
+        <div class="max-w-7xl mx-auto px-gutter">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-2xl items-center">
+            <div class="lg:col-span-5 flex flex-col gap-space-lg">
+              <span class="text-label-md text-primary uppercase tracking-wider">Education System</span>
+              <h2 class="text-headline-lg text-on-surface">5단계 교육 설계 시스템</h2>
+              <p class="text-body-md text-on-surface-variant">말솜씨에 의존하는 강의가 아닌, 철저한 표준 프로세스 기반의 교육 설계(Education
+                Designer)를 적용하여 지속 가능한 성과를 만듭니다.</p>
+              <div class="space-y-space-md">
+                <div class="flex items-start gap-space-md">
+                  <div
+                    class="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-container font-bold flex items-center justify-center shrink-0">
+                    1</div>
+                  <div>
+                    <h4 class="text-label-lg text-on-surface">대상 분석</h4>
+                    <p class="text-body-sm text-on-surface-variant">누가 배우는가 (숙련도 및 요구사항 정밀 파악)</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-space-md">
+                  <div
+                    class="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-container font-bold flex items-center justify-center shrink-0">
+                    2</div>
+                  <div>
+                    <h4 class="text-label-lg text-on-surface">목표 재정의</h4>
+                    <p class="text-body-sm text-on-surface-variant">무엇을 해낼 것인가 (명확한 결과물 설정)</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-space-md">
+                  <div
+                    class="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-container font-bold flex items-center justify-center shrink-0">
+                    3</div>
+                  <div>
+                    <h4 class="text-label-lg text-on-surface">활동 설계</h4>
+                    <p class="text-body-sm text-on-surface-variant">어떻게 경험할 것인가 (단계형 따라하기 및 실습 흐름)</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-space-md">
+                  <div
+                    class="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-container font-bold flex items-center justify-center shrink-0">
+                    4</div>
+                  <div>
+                    <h4 class="text-label-lg text-on-surface">콘텐츠 개발</h4>
+                    <p class="text-body-sm text-on-surface-variant">무엇을 남길 것인가 (교안, 유인물, 프롬프트 템플릿)</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-space-md">
+                  <div
+                    class="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-container font-bold flex items-center justify-center shrink-0">
+                    5</div>
+                  <div>
+                    <h4 class="text-label-lg text-on-surface">현장 운영</h4>
+                    <p class="text-body-sm text-on-surface-variant">어떻게 조정할 것인가 (수강생 간 속도·수준차 현장 대응)</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="lg:col-span-7 bg-surface-container-low p-space-2xl rounded-2xl relative overflow-hidden">
+              <div class="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-2xl pointer-events-none">
+              </div>
+              <h3 class="text-headline-md text-on-surface mb-space-lg">교육 기관 제공 산출물 (Working Assets)</h3>
+              <p class="text-body-md text-on-surface-variant mb-space-xl">강의 종료 후에도 기관에 지속적인 교육 가치가 남을 수 있도록 풍부한 실무 자산을
+                함께 지원합니다.</p>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-lg">
+                <div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm">
+                  <span class="material-symbols-outlined text-primary text-[28px] mb-space-xs">menu_book</span>
+                  <h4 class="text-label-lg text-on-surface mb-space-2xs">맞춤형 커리큘럼 및 교안</h4>
+                  <p class="text-body-sm text-on-surface-variant">기관 특성에 맞춘 표준 강사 교안 제공</p>
+                </div>
+                <div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm">
+                  <span class="material-symbols-outlined text-primary text-[28px] mb-space-xs">description</span>
+                  <h4 class="text-label-lg text-on-surface mb-space-2xs">단계별 워크북 및 유인물</h4>
+                  <p class="text-body-sm text-on-surface-variant">수강생 복습을 돕는 실습 중심 핸드북</p>
+                </div>
+                <div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm">
+                  <span class="material-symbols-outlined text-primary text-[28px] mb-space-xs">terminal</span>
+                  <h4 class="text-label-lg text-on-surface mb-space-2xs">프롬프트 템플릿</h4>
+                  <p class="text-body-sm text-on-surface-variant">즉시 현업에 적용 가능한 AI 프롬프트 모음</p>
+                </div>
+                <div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm">
+                  <span class="material-symbols-outlined text-primary text-[28px] mb-space-xs">support_agent</span>
+                  <h4 class="text-label-lg text-on-surface mb-space-2xs">활용 가이드 및 안내서</h4>
+                  <p class="text-body-sm text-on-surface-variant">후속 학습 및 자가 발전 가이드 제공</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-
-        <button type="submit" class="btn btn--primary btn--block">신청서 제출하기</button>
-        <p class="form-note">입력하신 정보는 상담 목적 외에는 사용되지 않습니다.</p>
-      </form>
-
-      <div class="form-success" id="apply-success">
-        <div class="form-success__icon">✓</div>
-        <h3>신청이 접수되었습니다</h3>
-        <p>남겨주신 연락처로 담당자가 순차적으로 안내드리겠습니다.<br>감사합니다.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= FOOTER ================= -->
-<footer class="site-footer section--dark">
-  <div class="container">
-    <div class="footer__grid">
-      <div>
-        <div class="footer__brand">
-          <img src="logo.png" alt="VisionEduLink 로고">
-          <span class="en">Lab</span>
+      </section>
+      <!-- Course Application Form Section -->
+      <section class="w-full bg-surface-container py-space-2xl" id="apply">
+        <div class="max-w-7xl mx-auto px-gutter flex justify-center">
+          <div
+            class="w-full max-w-[640px] bg-surface-container-lowest p-space-2xl rounded-xl shadow-sm border border-outline-variant">
+            <div class="text-center mb-space-xl">
+              <span class="text-label-md text-primary uppercase tracking-wider">APPLY NOW</span>
+              <h2 class="text-headline-lg text-on-surface mt-space-2xs">수강 신청하기</h2>
+              <p class="text-body-md text-on-surface-variant mt-space-xs">아래 정보를 남겨주시면 담당자가 확인 후 자세한 안내를 드립니다.</p>
+            </div>
+            <form class="space-y-space-lg"
+              onsubmit="event.preventDefault(); alert('신청서가 성공적으로 제출되었습니다. 담당자가 확인 후 연락드리겠습니다.');">
+              <div>
+                <label class="block text-label-md text-on-surface mb-space-2xs">이름 <span
+                    class="text-error">*</span></label>
+                <input
+                  class="w-full px-space-md py-space-sm bg-surface rounded-lg border border-outline-variant focus:border-primary focus:outline-none transition-colors text-body-md text-on-surface"
+                  placeholder="성함을 입력해주세요" required="" type="text" />
+              </div>
+              <div>
+                <label class="block text-label-md text-on-surface mb-space-2xs">연락처 <span
+                    class="text-error">*</span></label>
+                <input
+                  class="w-full px-space-md py-space-sm bg-surface rounded-lg border border-outline-variant focus:border-primary focus:outline-none transition-colors text-body-md text-on-surface"
+                  placeholder="010-0000-0000" required="" type="tel" />
+              </div>
+              <div>
+                <label class="block text-label-md text-on-surface mb-space-2xs">이메일 <span
+                    class="text-error">*</span></label>
+                <input
+                  class="w-full px-space-md py-space-sm bg-surface rounded-lg border border-outline-variant focus:border-primary focus:outline-none transition-colors text-body-md text-on-surface"
+                  placeholder="example@email.com" required="" type="email" />
+              </div>
+              <div>
+                <label class="block text-label-md text-on-surface mb-space-xs">관심 분야 <span
+                    class="text-error">*</span></label>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm">
+                  <label
+                    class="flex items-center gap-space-sm p-space-sm rounded-lg bg-surface border border-outline-variant cursor-pointer hover:bg-surface-container-low transition-colors">
+                    <input class="w-5 h-5 text-primary focus:ring-primary" name="category" required="" type="radio" />
+                    <span class="text-body-md text-on-surface">시니어·평생교육</span>
+                  </label>
+                  <label
+                    class="flex items-center gap-space-sm p-space-sm rounded-lg bg-surface border border-outline-variant cursor-pointer hover:bg-surface-container-low transition-colors">
+                    <input class="w-5 h-5 text-primary focus:ring-primary" name="category" type="radio" />
+                    <span class="text-body-md text-on-surface">직장인·소상공인</span>
+                  </label>
+                  <label
+                    class="flex items-center gap-space-sm p-space-sm rounded-lg bg-surface border border-outline-variant cursor-pointer hover:bg-surface-container-low transition-colors">
+                    <input class="w-5 h-5 text-primary focus:ring-primary" name="category" type="radio" />
+                    <span class="text-body-md text-on-surface">교사·강사·교육설계자</span>
+                  </label>
+                  <label
+                    class="flex items-center gap-space-sm p-space-sm rounded-lg bg-surface border border-outline-variant cursor-pointer hover:bg-surface-container-low transition-colors">
+                    <input class="w-5 h-5 text-primary focus:ring-primary" name="category" type="radio" />
+                    <span class="text-body-md text-on-surface">유초중고 학생</span>
+                  </label>
+                </div>
+              </div>
+              <div>
+                <label class="block text-label-md text-on-surface mb-space-2xs">하고 싶은 말 (선택)</label>
+                <textarea
+                  class="w-full px-space-md py-space-sm bg-surface rounded-lg border border-outline-variant focus:border-primary focus:outline-none transition-colors text-body-md text-on-surface resize-none"
+                  placeholder="교육 목적이나 궁금하신 점을 자유롭게 적어주세요." rows="4"></textarea>
+              </div>
+              <button
+                class="w-full py-space-md rounded-xl bg-primary text-on-primary font-label-lg shadow-sm hover:opacity-90 transition-opacity"
+                type="submit">
+                신청서 제출하기
+              </button>
+              <p class="text-center text-body-sm text-on-surface-variant pt-space-xs">
+                입력하신 정보는 상담 목적 외에는 사용되지 않습니다. (문의: 010-3088-6708)
+              </p>
+            </form>
+          </div>
         </div>
-        <p class="footer__desc">VisionEduLink Lab · 비전에듀링크 AI교육연구소<br>기술을 가르치는 것보다 교육이 작동하게 만드는 일.</p>
-      </div>
-
-      <div>
-        <p class="footer__heading en">Menu</p>
-        <ul class="footer__links">
-          <li><a href="#programs">교육분야</a></li>
-          <li><a href="#founder">대표소개</a></li>
-          <li><a href="#apply">수강신청</a></li>
-        </ul>
-      </div>
-
-      <div>
-        <p class="footer__heading en">Contact</p>
-        <ul class="footer__contact">
-          <li>전화 · <a href="tel:01030886708">010-3088-6708</a></li>
-          <li>이메일 · <a href="mailto:fairy305@hanmail.net">fairy305@hanmail.net</a></li>
-        </ul>
-      </div>
+      </section>
     </div>
-
-    <div class="footer__bottom">
-      <span>© 2026 VisionEduLink. All rights reserved.</span>
-      <span>VisionEduLink Lab · 비전에듀링크 AI교육연구소</span>
+  </main>
+  <footer class="w-full bg-surface-container-low py-space-2xl">
+    <div
+      class="max-w-7xl mx-auto px-gutter flex flex-col md:flex-row justify-between items-center gap-space-lg text-on-surface-variant text-body-sm">
+      <div class="flex flex-col items-center md:items-start gap-space-xs"><span
+          class="text-headline-sm text-on-surface font-semibold">VisionEduLink Lab</span>
+        <p>Human-centric mentorship and advanced educational technology.</p>
+      </div>
+      <div class="flex gap-space-xl"><a class="hover:text-on-surface transition-colors" href="#">이용약관</a><a
+          class="hover:text-on-surface transition-colors" href="#">개인정보처리방침</a><a
+          class="hover:text-on-surface transition-colors" href="#">고객센터</a></div>
+      <p>© 2024 VisionEduLink Lab. All rights reserved.</p>
     </div>
-  </div>
-</footer>
-
-<script src="script.js"></script>
+  </footer>
 </body>
+
 </html>
