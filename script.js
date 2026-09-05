@@ -96,14 +96,21 @@ document.addEventListener('DOMContentLoaded', () => {
       try {
         if (GOOGLE_SCRIPT_URL && GOOGLE_SCRIPT_URL.trim() !== '') {
           // Google Apps Script 웹 앱으로 데이터 전송
-          await fetch(GOOGLE_SCRIPT_URL, {
+          // 주의: mode:'no-cors' + Content-Type:'application/json' 조합은 브라우저가
+          // 실제 요청을 조용히 실패시켜 데이터가 전달되지 않는 경우가 있어(응답은 항상
+          // "성공"처럼 보이지만 시트에는 기록되지 않음), 사전 요청(preflight)이 필요 없는
+          // text/plain으로 보내고 실제 응답을 확인하도록 수정함.
+          const res = await fetch(GOOGLE_SCRIPT_URL, {
             method: 'POST',
-            mode: 'no-cors', // 구글 앱스 스크립트 CORS 우회 및 보안 정책 통과
             headers: {
-              'Content-Type': 'application/json',
+              'Content-Type': 'text/plain;charset=utf-8',
             },
             body: JSON.stringify(formData),
           });
+          const resultJson = await res.json().catch(() => null);
+          if (!res.ok || (resultJson && resultJson.result === 'error')) {
+            throw new Error(resultJson && resultJson.error ? resultJson.error : 'Google Sheets 응답 오류');
+          }
         } else {
           console.warn('[안내] GOOGLE_SCRIPT_URL이 설정되지 않았습니다. google_apps_script.js 배포 후 발급받은 URL을 script.js에 입력해 주세요.');
           // 시연용 딜레이
