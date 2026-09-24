@@ -9,6 +9,33 @@
  */
 const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzirSbHMLV8fXv3PQa0QF-b6eESdf8kXyzHxR6IKukoZJ7OM7ChK0KXIYPunmwBGFuV/exec';
 
+/**
+ * Google Apps Script 웹 앱으로 폼 데이터를 전송하는 공통 함수.
+ * 주의: mode:'no-cors' + Content-Type:'application/json' 조합은 브라우저가
+ * 실제 요청을 조용히 실패시켜 데이터가 전달되지 않는 경우가 있어(응답은 항상
+ * "성공"처럼 보이지만 시트에는 기록되지 않음), 사전 요청(preflight)이 필요 없는
+ * text/plain으로 보내고 실제 응답을 확인하도록 함.
+ */
+async function submitFormData(payload) {
+  if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.trim() === '') {
+    console.warn('[안내] GOOGLE_SCRIPT_URL이 설정되지 않았습니다. google_apps_script.js 배포 후 발급받은 URL을 script.js에 입력해 주세요.');
+    await new Promise((resolve) => setTimeout(resolve, 800));
+    return;
+  }
+
+  const res = await fetch(GOOGLE_SCRIPT_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'text/plain;charset=utf-8',
+    },
+    body: JSON.stringify(payload),
+  });
+  const resultJson = await res.json().catch(() => null);
+  if (!res.ok || (resultJson && resultJson.result === 'error')) {
+    throw new Error(resultJson && resultJson.error ? resultJson.error : 'Google Sheets 응답 오류');
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   /* Mobile nav toggle */
   const navToggle = document.querySelector('.nav-toggle');
@@ -94,28 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (formError) formError.style.display = 'none';
 
       try {
-        if (GOOGLE_SCRIPT_URL && GOOGLE_SCRIPT_URL.trim() !== '') {
-          // Google Apps Script 웹 앱으로 데이터 전송
-          // 주의: mode:'no-cors' + Content-Type:'application/json' 조합은 브라우저가
-          // 실제 요청을 조용히 실패시켜 데이터가 전달되지 않는 경우가 있어(응답은 항상
-          // "성공"처럼 보이지만 시트에는 기록되지 않음), 사전 요청(preflight)이 필요 없는
-          // text/plain으로 보내고 실제 응답을 확인하도록 수정함.
-          const res = await fetch(GOOGLE_SCRIPT_URL, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'text/plain;charset=utf-8',
-            },
-            body: JSON.stringify(formData),
-          });
-          const resultJson = await res.json().catch(() => null);
-          if (!res.ok || (resultJson && resultJson.result === 'error')) {
-            throw new Error(resultJson && resultJson.error ? resultJson.error : 'Google Sheets 응답 오류');
-          }
-        } else {
-          console.warn('[안내] GOOGLE_SCRIPT_URL이 설정되지 않았습니다. google_apps_script.js 배포 후 발급받은 URL을 script.js에 입력해 주세요.');
-          // 시연용 딜레이
-          await new Promise((resolve) => setTimeout(resolve, 800));
-        }
+        await submitFormData(formData);
 
         // 성공 화면 표시
         applyForm.classList.add('is-hidden');
@@ -134,6 +140,62 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       } finally {
         if (submitBtn) submitBtn.disabled = false;
+        if (btnText) btnText.style.display = 'inline';
+        if (btnLoader) btnLoader.style.display = 'none';
+      }
+    });
+  }
+
+  /* Institute inquiry form: Google Sheets integration (별도 시트 + 이메일 알림) */
+  const instituteForm = document.getElementById('institute-form');
+  const instituteSuccess = document.getElementById('institute-success');
+  const instituteSubmitBtn = document.getElementById('institute-submit-btn');
+  const instituteError = document.getElementById('institute-form-error');
+
+  if (instituteForm && instituteSuccess) {
+    instituteForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      if (!instituteForm.checkValidity()) {
+        instituteForm.reportValidity();
+        return;
+      }
+
+      const selectedType = instituteForm.querySelector('input[name="cooperationType"]:checked');
+      const formData = {
+        formType: 'institute',
+        orgName: instituteForm.orgName.value.trim(),
+        cooperationType: selectedType ? selectedType.value : '',
+        scaleTiming: instituteForm.scaleTiming ? instituteForm.scaleTiming.value.trim() : '',
+        contact: instituteForm.contact.value.trim()
+      };
+
+      const btnText = instituteSubmitBtn ? instituteSubmitBtn.querySelector('.btn-text') : null;
+      const btnLoader = instituteSubmitBtn ? instituteSubmitBtn.querySelector('.btn-loader') : null;
+
+      if (instituteSubmitBtn) instituteSubmitBtn.disabled = true;
+      if (btnText) btnText.style.display = 'none';
+      if (btnLoader) btnLoader.style.display = 'inline-flex';
+      if (instituteError) instituteError.style.display = 'none';
+
+      try {
+        await submitFormData(formData);
+
+        instituteForm.classList.add('is-hidden');
+        instituteSuccess.classList.add('is-visible');
+        instituteSuccess.setAttribute('tabindex', '-1');
+        instituteSuccess.focus();
+        instituteSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        instituteForm.reset();
+      } catch (err) {
+        console.error('기관 협력 문의 제출 오류:', err);
+        if (instituteError) {
+          instituteError.textContent = '문의 전송 중 문제가 발생했습니다. 잠시 후 다시 시도해 주세요.';
+          instituteError.style.display = 'block';
+        }
+      } finally {
+        if (instituteSubmitBtn) instituteSubmitBtn.disabled = false;
         if (btnText) btnText.style.display = 'inline';
         if (btnLoader) btnLoader.style.display = 'none';
       }

@@ -11,6 +11,9 @@ const SPREADSHEET_ID = '1xG7XdDSGzvyRDLcYGRx2DJC2NVgUbidgjp7mpP4t-No';
 const KAKAO_CLIENT_ID = 'dbf364842925c13b9e4fe150b87729ed';
 const KAKAO_CLIENT_SECRET = 'JNS5OfZFNc92bpXV5pYVPlZyo4tnt1Rk';
 
+// 기관 협력 문의가 들어왔을 때 이메일을 받을 주소 (필요하면 바꿔주세요)
+const INQUIRY_NOTIFY_EMAIL = 'fairy305@hanmail.net';
+
 function doPost(e) {
   var lock = LockService.getScriptLock();
   // 동시 제출 충돌 방지 (최대 10초 대기)
@@ -22,19 +25,6 @@ function doPost(e) {
       ss = SpreadsheetApp.openById(SPREADSHEET_ID);
     } else {
       ss = SpreadsheetApp.getActiveSpreadsheet();
-    }
-
-    var sheet = ss.getActiveSheet() || ss.getSheets()[0];
-
-    // 첫 행(헤더)이 없으면 자동으로 타이틀 행 생성 및 스타일 적용
-    if (sheet.getLastRow() === 0) {
-      var headerRange = sheet.getRange(1, 1, 1, 6);
-      headerRange.setValues([['신청일시', '이름', '연락처', '이메일', '관심분야', '하고 싶은 말']]);
-      headerRange.setBackground('#2d4739');
-      headerRange.setFontColor('#ffffff');
-      headerRange.setFontWeight('bold');
-      headerRange.setHorizontalAlignment('center');
-      sheet.setRowHeight(1, 36);
     }
 
     // 전송된 데이터 파싱 (JSON 또는 폼 파라미터)
@@ -49,34 +39,11 @@ function doPost(e) {
       data = e.parameter;
     }
 
-    var now = new Date();
-    var timestamp = Utilities.formatDate(now, 'Asia/Seoul', 'yyyy-MM-dd HH:mm:ss');
-    var name = data.name || '';
-    var phone = data.phone || '';
-    var email = data.email || '';
-    var interest = data.interest || '';
-    var message = data.message || '';
-
-    // 시트에 새 행 추가
-    sheet.appendRow([timestamp, name, phone, email, interest, message]);
-
-    // 새 수강신청이 들어오면 카카오톡으로 나에게 알림 보내기
-    try {
-      var kakaoMessage =
-        '📋 새로운 수강신청이 접수되었습니다!\n\n' +
-        '이름: ' + (name || '(없음)') + '\n' +
-        '연락처: ' + (phone || '(없음)') + '\n' +
-        '이메일: ' + (email || '(없음)') + '\n' +
-        '관심분야: ' + (interest || '(없음)') + '\n' +
-        '신청시각: ' + timestamp;
-      sendKakaoNotification(kakaoMessage);
-    } catch (kakaoErr) {
-      Logger.log('카카오 알림 전송 실패(시트 저장은 정상 완료됨): ' + kakaoErr);
+    // formType이 'institute'면 기관 협력 문의, 없으면 일반 수강신청으로 처리
+    if (data.formType === 'institute') {
+      return handleInstituteInquiry(ss, data);
     }
-
-    return ContentService.createTextOutput(
-      JSON.stringify({ result: 'success', row: sheet.getLastRow() })
-    ).setMimeType(ContentService.MimeType.JSON);
+    return handleApplyForm(ss, data);
 
   } catch (error) {
     return ContentService.createTextOutput(
@@ -85,6 +52,107 @@ function doPost(e) {
   } finally {
     lock.releaseLock();
   }
+}
+
+/**
+ * 일반 수강신청 폼 처리 (기존 로직)
+ */
+function handleApplyForm(ss, data) {
+  // 항상 첫 번째 시트(스프레드시트 탭)를 사용합니다.
+  // (getActiveSheet()는 "기관협력문의" 시트가 새로 생기면서 활성 시트가 바뀔 수 있어
+  //  더 이상 사용하지 않고, 항상 첫 번째 탭을 고정으로 가리키도록 했습니다.)
+  var sheet = ss.getSheets()[0];
+
+  // 첫 행(헤더)이 없으면 자동으로 타이틀 행 생성 및 스타일 적용
+  if (sheet.getLastRow() === 0) {
+    var headerRange = sheet.getRange(1, 1, 1, 6);
+    headerRange.setValues([['신청일시', '이름', '연락처', '이메일', '관심분야', '하고 싶은 말']]);
+    headerRange.setBackground('#2d4739');
+    headerRange.setFontColor('#ffffff');
+    headerRange.setFontWeight('bold');
+    headerRange.setHorizontalAlignment('center');
+    sheet.setRowHeight(1, 36);
+  }
+
+  var now = new Date();
+  var timestamp = Utilities.formatDate(now, 'Asia/Seoul', 'yyyy-MM-dd HH:mm:ss');
+  var name = data.name || '';
+  var phone = data.phone || '';
+  var email = data.email || '';
+  var interest = data.interest || '';
+  var message = data.message || '';
+
+  // 시트에 새 행 추가
+  sheet.appendRow([timestamp, name, phone, email, interest, message]);
+
+  // 새 수강신청이 들어오면 카카오톡으로 나에게 알림 보내기
+  try {
+    var kakaoMessage =
+      '📋 새로운 수강신청이 접수되었습니다!\n\n' +
+      '이름: ' + (name || '(없음)') + '\n' +
+      '연락처: ' + (phone || '(없음)') + '\n' +
+      '이메일: ' + (email || '(없음)') + '\n' +
+      '관심분야: ' + (interest || '(없음)') + '\n' +
+      '신청시각: ' + timestamp;
+    sendKakaoNotification(kakaoMessage);
+  } catch (kakaoErr) {
+    Logger.log('카카오 알림 전송 실패(시트 저장은 정상 완료됨): ' + kakaoErr);
+  }
+
+  return ContentService.createTextOutput(
+    JSON.stringify({ result: 'success', row: sheet.getLastRow() })
+  ).setMimeType(ContentService.MimeType.JSON);
+}
+
+/**
+ * 기관 협력 문의 폼 처리
+ * - "기관협력문의"라는 별도 시트 탭에 기록
+ * - 접수 즉시 이메일로 알림 발송 (INQUIRY_NOTIFY_EMAIL)
+ */
+function handleInstituteInquiry(ss, data) {
+  var sheetName = '기관협력문의';
+  var sheet = ss.getSheetByName(sheetName);
+  if (!sheet) {
+    sheet = ss.insertSheet(sheetName);
+  }
+
+  if (sheet.getLastRow() === 0) {
+    var headerRange = sheet.getRange(1, 1, 1, 5);
+    headerRange.setValues([['접수일시', '기관명·소속', '협력 희망 형태', '규모·시기', '연락처']]);
+    headerRange.setBackground('#45451F');
+    headerRange.setFontColor('#ffffff');
+    headerRange.setFontWeight('bold');
+    headerRange.setHorizontalAlignment('center');
+    sheet.setRowHeight(1, 36);
+  }
+
+  var now = new Date();
+  var timestamp = Utilities.formatDate(now, 'Asia/Seoul', 'yyyy-MM-dd HH:mm:ss');
+  var orgName = data.orgName || '';
+  var cooperationType = data.cooperationType || '';
+  var scaleTiming = data.scaleTiming || '';
+  var contact = data.contact || '';
+
+  sheet.appendRow([timestamp, orgName, cooperationType, scaleTiming, contact]);
+
+  // 접수 즉시 이메일로 알림
+  try {
+    var subject = '[VisionEduLink Lab] 새로운 기관 협력 문의가 접수되었습니다';
+    var body =
+      '새로운 기관 협력 문의가 접수되었습니다.\n\n' +
+      '기관명·소속: ' + (orgName || '(없음)') + '\n' +
+      '협력 희망 형태: ' + (cooperationType || '(없음)') + '\n' +
+      '규모·시기: ' + (scaleTiming || '(없음)') + '\n' +
+      '연락처: ' + (contact || '(없음)') + '\n' +
+      '접수시각: ' + timestamp;
+    MailApp.sendEmail(INQUIRY_NOTIFY_EMAIL, subject, body);
+  } catch (mailErr) {
+    Logger.log('이메일 알림 전송 실패(시트 저장은 정상 완료됨): ' + mailErr);
+  }
+
+  return ContentService.createTextOutput(
+    JSON.stringify({ result: 'success', row: sheet.getLastRow() })
+  ).setMimeType(ContentService.MimeType.JSON);
 }
 
 // GET 요청 테스트용 (배포 후 웹 앱 URL로 브라우저 접속 시 작동 확인)
